@@ -7,9 +7,11 @@
 /* SIDEBAR */
 .vendor-sidebar {
   width: 260px;
+  flex-shrink: 0;
   background: #111827;
   padding: 25px;
   color: white;
+  transition: all 0.3s ease;
 }
 
 /* TITLE */
@@ -45,4 +47,49 @@
   flex: 1;
   padding: 30px;
   background: #f9fafb;
+  min-width: 0;
+}
+
+/* 📱 TABLET & MOBILE */
+@media (max-width: 768px) {
+  .vendor-container {
+    flex-direction: column;
+  }
+
+  .vendor-sidebar {
+    width: 100%;
+    padding: 15px;
+    display: flex;
+    overflow-x: auto;
+    gap: 10px;
+  }
+
+  .vendor-logo {
+    display: none;
+  }
+
+  .vendor-link {
+    white-space: nowrap;
+    margin-bottom: 0;
+  }
+
+  .vendor-content {
+    padding: 15px;
+  }
+}
+
+/* 📱 SMALL MOBILE */
+@media (max-width: 480px) {
+  .vendor-sidebar {
+    padding: 10px;
+  }
+
+  .vendor-link {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .vendor-content {
+    padding: 12px;
+  }
 }

@@ -1,6 +1,7 @@
 .vendor-dashboard {
   padding: 30px;
   background: #f8fafc;
+  min-width: 0;
 }
 
 /* STATS CARDS */
@@ -16,7 +17,7 @@
   padding: 20px;
   border-radius: 14px;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-  transition: 0.3s;
+  transition: transform 0.3s ease;
 }
 
 .stats-card:hover {
@@ -52,7 +53,7 @@
   margin-bottom: 15px;
 }
 
-/* RESPONSIVE */
+/* 📱 TABLET */
 @media (max-width: 992px) {
   .stats-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -63,8 +64,25 @@
   }
 }
 
+/* 📱 MOBILE */
 @media (max-width: 576px) {
   .stats-grid {
     grid-template-columns: 1fr;
+  }
+
+  .vendor-dashboard {
+    padding: 15px;
+  }
+
+  .stats-card {
+    padding: 15px;
+  }
+
+  .stats-card h2 {
+    font-size: 22px;
+  }
+
+  .chart-card {
+    padding: 15px;
   }
 }

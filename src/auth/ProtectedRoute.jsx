@@ -1,0 +1,18 @@
+import { Navigate } from "react-router-dom";
+
+const ProtectedRoute = ({ children }) => {
+  const token = localStorage.getItem("token");
+
+  // ❌ Not logged in
+  if (!token) {
+    return <Navigate to="/login" replace />;
+  }
+
+  // (Optional Future Check - safe)
+  // यहाँ बाद में token expiry / role check add कर सकते हैं
+
+  // ✅ Logged in
+  return children;
+};
+
+export default ProtectedRoute;

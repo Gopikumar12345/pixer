@@ -1,5 +1,65 @@
+/* CART BADGE (UNCHANGED) */
+.cart-badge {
+  position: absolute;
+  top: -6px;
+  right: -10px;
+  background: red;
+  color: white;
+  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 50%;
+  line-height: 1;
+}
+
+/* MOBILE FIX (UNCHANGED) */
+@media (max-width: 768px) {
+  .btn-register,
+  .btn-login {
+    width: 100%;
+  }
+}
+/* BASE AUTH BUTTON STYLE */
+.nav-auth-btn {
+  display: inline-block;
+  text-decoration: none !important;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+/* REGISTER BUTTON */
+.register-btn {
+  background: #aa3bff;
+  color: white;
+  border: none;
+}
+
+.register-btn:hover {
+  background: #8e2bd1;
+  color: white;
+}
+
+/* LOGIN BUTTON */
+.login-btn {
+  background: transparent;
+  border: 1px solid #aa3bff;
+  color: #aa3bff;
+}
+
+.login-btn:hover {
+  background: #aa3bff;
+  color: white;
+}
+
+/* MOBILE RESPONSIVE */
+@media (max-width: 768px) {
+  .nav-auth-btn {
+    width: 100%;
+    text-align: center;
+  }
+}
 body {
-  margin: 0;
-  padding: 0;
-  font-family: Arial;
+  overflow-x: hidden;
 }

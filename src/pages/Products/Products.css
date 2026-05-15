@@ -5,14 +5,48 @@
   object-fit: contain;
   background-color: #f8f9fa;
   padding: 10px;
+  display: block;
 }
 
 /* Product Card */
 .product-card {
   border: none;
-  transition: 0.3s;
+  transition: transform 0.3s ease;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
 }
 
+/* Hover effect (FIXED) */
 .product-card:hover {
   transform: translateY(-5px);
+}
+
+/* 📱 TABLET */
+@media (max-width: 768px) {
+  .product-image {
+    height: 200px;
+  }
+}
+
+/* 📱 MOBILE */
+@media (max-width: 480px) {
+  .product-image {
+    height: 180px;
+    padding: 8px;
+  }
+
+  .product-card {
+    margin-bottom: 15px;
+  }
+}
+.card-img-top {
+  width: 100%;
+  object-fit: contain;
+}
+
+@media (max-width: 576px) {
+  .card {
+    margin-bottom: 20px;
+  }
 }

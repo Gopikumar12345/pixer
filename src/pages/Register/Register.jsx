@@ -30,17 +30,37 @@ function Register() {
     validationSchema,
 
     onSubmit: (values) => {
+      const existingUser = JSON.parse(localStorage.getItem("user"));
+
+      // 🔐 Prevent overwrite (important fix)
+      if (existingUser && existingUser.email === values.email) {
+        alert("User already exists! Please login.");
+        navigate("/login");
+        return;
+      }
+
       const userData = {
         name: values.name,
         email: values.email,
         password: values.password,
       };
 
+      // 💾 Save user
       localStorage.setItem("user", JSON.stringify(userData));
+
+      // 🔐 Optional: auto session setup (future ready)
+      localStorage.setItem(
+        "userSession",
+        JSON.stringify({
+          email: values.email,
+          createdAt: Date.now(),
+        })
+      );
 
       alert("Registration Successful");
 
-      navigate("/login");
+      // redirect
+      navigate("/login", { replace: true });
     },
   });
 
@@ -52,10 +72,9 @@ function Register() {
             <h2 className="text-center fw-bold mb-4">Register</h2>
 
             <form onSubmit={formik.handleSubmit}>
-              {/* Name */}
+              {/* NAME */}
               <div className="mb-3">
                 <label className="form-label">Full Name</label>
-
                 <input
                   type="text"
                   name="name"
@@ -65,16 +84,14 @@ function Register() {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
-
                 {formik.touched.name && formik.errors.name && (
                   <small className="text-danger">{formik.errors.name}</small>
                 )}
               </div>
 
-              {/* Email */}
+              {/* EMAIL */}
               <div className="mb-3">
                 <label className="form-label">Email address</label>
-
                 <input
                   type="email"
                   name="email"
@@ -84,16 +101,14 @@ function Register() {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
-
                 {formik.touched.email && formik.errors.email && (
                   <small className="text-danger">{formik.errors.email}</small>
                 )}
               </div>
 
-              {/* Password */}
+              {/* PASSWORD */}
               <div className="mb-3">
                 <label className="form-label">Password</label>
-
                 <input
                   type="password"
                   name="password"
@@ -103,7 +118,6 @@ function Register() {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
-
                 {formik.touched.password && formik.errors.password && (
                   <small className="text-danger">
                     {formik.errors.password}
@@ -111,10 +125,9 @@ function Register() {
                 )}
               </div>
 
-              {/* Confirm Password */}
+              {/* CONFIRM PASSWORD */}
               <div className="mb-3">
                 <label className="form-label">Confirm Password</label>
-
                 <input
                   type="password"
                   name="confirmPassword"
@@ -124,7 +137,6 @@ function Register() {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
-
                 {formik.touched.confirmPassword &&
                   formik.errors.confirmPassword && (
                     <small className="text-danger">

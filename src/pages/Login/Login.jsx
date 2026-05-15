@@ -1,8 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
 function Login() {
+  const navigate = useNavigate();
+
   // Validation Schema
   const validationSchema = Yup.object({
     email: Yup.string()
@@ -14,7 +16,6 @@ function Login() {
       .required("Password is required"),
   });
 
-  // Formik
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -35,7 +36,26 @@ function Login() {
         values.email === storedUser.email &&
         values.password === storedUser.password
       ) {
+        // ✅ OLD FLOW (safe keep)
+        localStorage.setItem("isLoggedIn", "true");
+
+        // 🔐 JWT STYLE TOKEN (frontend mock)
+        const fakeToken = "pixer_jwt_" + Date.now();
+        localStorage.setItem("token", fakeToken);
+
+        // 👤 Session info
+        localStorage.setItem(
+          "userSession",
+          JSON.stringify({
+            email: storedUser.email,
+            loginTime: Date.now(),
+          })
+        );
+
         alert("Login Successful");
+
+        // 🔥 redirect safe
+        navigate("/dashboard", { replace: true });
       } else {
         alert("Invalid email or password");
       }
@@ -50,7 +70,7 @@ function Login() {
             <h2 className="text-center fw-bold mb-4">Login</h2>
 
             <form onSubmit={formik.handleSubmit}>
-              {/* Email */}
+              {/* EMAIL */}
               <div className="mb-3">
                 <label className="form-label">Email address</label>
 
@@ -69,7 +89,7 @@ function Login() {
                 )}
               </div>
 
-              {/* Password */}
+              {/* PASSWORD */}
               <div className="mb-3">
                 <label className="form-label">Password</label>
 
@@ -90,11 +110,13 @@ function Login() {
                 )}
               </div>
 
+              {/* SUBMIT */}
               <button type="submit" className="btn btn-dark w-100">
                 Login
               </button>
             </form>
 
+            {/* REGISTER LINK */}
             <p className="text-center mt-3 text-muted">
               Don't have an account? <Link to="/register">Sign up</Link>
             </p>

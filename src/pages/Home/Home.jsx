@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import "./Home.css";
 
 function Home() {
@@ -34,6 +35,24 @@ function Home() {
 
   return (
     <>
+      {/* SEO META TAGS */}
+      <Helmet>
+        <title>Pixer - Home | Modern Ecommerce Marketplace</title>
+        <meta
+          name="description"
+          content="Pixer is a modern ecommerce multivendor marketplace. Shop smart watches, mobiles, speakers and more at best prices."
+        />
+        <meta
+          name="keywords"
+          content="pixer, ecommerce, marketplace, online shopping, smart watch, mobile, speaker"
+        />
+        <meta property="og:title" content="Pixer Ecommerce Home" />
+        <meta
+          property="og:description"
+          content="Discover premium products with smooth shopping experience on Pixer."
+        />
+      </Helmet>
+
       {/* HERO SECTION */}
       <section className="container py-5 min-vh-100 d-flex align-items-center">
         <div className="row align-items-center w-100">
@@ -118,9 +137,8 @@ function Home() {
           {featuredProducts.map((product) => (
             <div className="col-md-4" key={product.id}>
               <div className="card border-0 shadow-sm rounded-4 h-100 product-card">
-                {/* IMAGE FIXED SIZE */}
                 <div className="product-img-box">
-                  <img src={product.image} alt="" />
+                  <img src={product.image} alt={product.title} />
                 </div>
 
                 <div className="card-body d-flex flex-column">

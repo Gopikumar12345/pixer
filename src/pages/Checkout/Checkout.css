@@ -1,0 +1,23 @@
+form input,
+form textarea {
+  border-radius: 10px;
+}
+
+.card {
+  border-radius: 16px;
+}
+.payment-option {
+  border: 1px solid #ddd;
+  padding: 14px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.payment-option:hover {
+  background: #f8f9fa;
+}
+
+.card {
+  border-radius: 18px;
+}
