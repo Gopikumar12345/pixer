@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { toast } from "react-toastify"; // ✅ ADD
 
 function Register() {
   const navigate = useNavigate();
@@ -15,7 +16,7 @@ function Register() {
       .required("Password is required"),
 
     confirmPassword: Yup.string()
-      .oneOf([Yup.ref("password"), null], "Passwords must match")
+      .oneOf([Yup.ref("password")], "Passwords must match")
       .required("Confirm Password is required"),
   });
 
@@ -32,9 +33,9 @@ function Register() {
     onSubmit: (values) => {
       const existingUser = JSON.parse(localStorage.getItem("user"));
 
-      // 🔐 Prevent overwrite (important fix)
+      // 🔐 Already registered check
       if (existingUser && existingUser.email === values.email) {
-        alert("User already exists! Please login.");
+        toast.error("User already exists! Please login ❌"); // ✅ FIX
         navigate("/login");
         return;
       }
@@ -45,10 +46,8 @@ function Register() {
         password: values.password,
       };
 
-      // 💾 Save user
       localStorage.setItem("user", JSON.stringify(userData));
 
-      // 🔐 Optional: auto session setup (future ready)
       localStorage.setItem(
         "userSession",
         JSON.stringify({
@@ -57,10 +56,11 @@ function Register() {
         })
       );
 
-      alert("Registration Successful");
+      toast.success("Registration Successful 🎉"); // ✅ FIX
 
-      // redirect
-      navigate("/login", { replace: true });
+      setTimeout(() => {
+        navigate("/login", { replace: true });
+      }, 600);
     },
   });
 
@@ -79,7 +79,6 @@ function Register() {
                   type="text"
                   name="name"
                   className="form-control"
-                  placeholder="Enter name"
                   value={formik.values.name}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
@@ -96,7 +95,6 @@ function Register() {
                   type="email"
                   name="email"
                   className="form-control"
-                  placeholder="Enter email"
                   value={formik.values.email}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
@@ -113,7 +111,6 @@ function Register() {
                   type="password"
                   name="password"
                   className="form-control"
-                  placeholder="Enter password"
                   value={formik.values.password}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
@@ -132,7 +129,6 @@ function Register() {
                   type="password"
                   name="confirmPassword"
                   className="form-control"
-                  placeholder="Re-enter password"
                   value={formik.values.confirmPassword}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}

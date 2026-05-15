@@ -1,11 +1,11 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { toast } from "react-toastify"; // ✅ ADD THIS
 
 function Login() {
   const navigate = useNavigate();
 
-  // Validation Schema
   const validationSchema = Yup.object({
     email: Yup.string()
       .email("Invalid email format")
@@ -28,7 +28,7 @@ function Login() {
       const storedUser = JSON.parse(localStorage.getItem("user"));
 
       if (!storedUser) {
-        alert("Please register first");
+        toast.error("Please register first ❌"); // ✅ UPDATED
         return;
       }
 
@@ -36,14 +36,11 @@ function Login() {
         values.email === storedUser.email &&
         values.password === storedUser.password
       ) {
-        // ✅ OLD FLOW (safe keep)
         localStorage.setItem("isLoggedIn", "true");
 
-        // 🔐 JWT STYLE TOKEN (frontend mock)
         const fakeToken = "pixer_jwt_" + Date.now();
         localStorage.setItem("token", fakeToken);
 
-        // 👤 Session info
         localStorage.setItem(
           "userSession",
           JSON.stringify({
@@ -52,12 +49,13 @@ function Login() {
           })
         );
 
-        alert("Login Successful");
+        toast.success("Login Successful 🟢"); // ✅ UPDATED
 
-        // 🔥 redirect safe
-        navigate("/dashboard", { replace: true });
+        setTimeout(() => {
+          navigate("/dashboard", { replace: true });
+        }, 500);
       } else {
-        alert("Invalid email or password");
+        toast.error("Invalid email or password ❌"); // ✅ UPDATED
       }
     },
   });
